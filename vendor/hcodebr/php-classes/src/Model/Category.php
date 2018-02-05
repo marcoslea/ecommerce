@@ -27,7 +27,7 @@ class Category extends Model {
 			));
 
 			$this->setData($results[0]);
-
+			//chama o método updateFile	quando eu fizer um save
 			Category::updateFile();
 	
 	}
@@ -50,20 +50,20 @@ class Category extends Model {
 			':idcategory'=>$this->getidcategory	()
 
 		]);
-
+		//chama o método updateFile	quando eu fizer um delete
 		Category::updateFile();
 	}
-
+	//atualiza as categorias criadas contidas no arquivo categories-menu.html
 	public static function updateFile()
-	{
+	{	//método que traz todas as categorias do banco de dados
 		$categories = Category::listAll();
-
+		//cria dinamicamente as categorias nor arquivo categories-menu.html, todas vez que uma categoria for criada no banco de dados
 		$html = [];
-
+		//foreach para percorrer as categorias no banco, e preencher o array $html
 		foreach ($categories as $row) {
 			array_push($html,'<li><a href="/categories/'.$row['idcategory'].'">'.$row['descategory'].'</a></li>');
 		}
-
+		//salva o arquivo, usando o caminho absoluto/como o arquivo é um array eu faço um implod por nada transformando a variável $html em string
 		file_put_contents($_SERVER['DOCUMENT_ROOT']. DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR ."categories-menu.html", implode('',$html));
 	}
 	

@@ -307,18 +307,18 @@
 
 			
 		});
-
+		//rota para o arquivo category.html
 		$app->get("/categories/:idcategory", function($idcategory){
 
 			$category = new Category();
-
+			//carrega a categoria
 			$category->get((int)$idcategory);
-
+			//essa rota retorna uma página do site, por isso usa-se a classe Page()
 			$page = new Page();
-
+			//chama e monta o template category com o rainTpl
 			$page->setTpl("category", [
 				'category'=>$category->getValues(),
-				'products'=>[]
+				'products'=>[]//apenas para não dar erro nos teste por agora, pois ainda não tenho os produtos no banco
 			]);
 		});
 
